@@ -562,11 +562,6 @@ export const SectionRenderer: React.FC<SectionRendererProps> = ({ section, produ
                       </div>
                     </div>
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-                  <div className="absolute bottom-4 left-4 right-4 text-white text-xs flex items-center justify-between pointer-events-none">
-                    <span className="font-medium text-[#FAF7F2]/90">{activeSettings?.header?.brandName || 'Enterprise'} Deployment Node</span>
-                    <span className="text-[#D5A13C] font-mono tabular-nums">Cluster v2.8</span>
-                  </div>
                 </div>
                 )}
               </div>

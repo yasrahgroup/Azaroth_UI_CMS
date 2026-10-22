@@ -22,6 +22,7 @@ import {
   buildMediaFilename,
   createMediaStorage,
   resolveMediaStorageConfig,
+  type MediaStorage,
 } from './src/server/mediaStorage.js';
 import {
   validateSiteSettingsDraft,
@@ -58,7 +59,29 @@ if (!fs.existsSync(UPLOAD_DIR)) {
   fs.mkdirSync(UPLOAD_DIR, { recursive: true });
 }
 
-const mediaStorage = createMediaStorage(resolveMediaStorageConfig(UPLOAD_DIR));
+let mediaStorageConfigurationError: Error | null = null;
+let mediaStorage: MediaStorage;
+try {
+  mediaStorage = createMediaStorage(resolveMediaStorageConfig(UPLOAD_DIR));
+} catch (err) {
+  if (process.env.VERCEL !== '1') throw err;
+
+  mediaStorageConfigurationError =
+    err instanceof Error ? err : new Error('Media storage configuration is invalid.');
+  console.error('[Media] Storage configuration unavailable; media operations are disabled:', mediaStorageConfigurationError.message);
+  mediaStorage = {
+    kind: 'disk',
+    async save() {
+      throw mediaStorageConfigurationError;
+    },
+    async read() {
+      throw mediaStorageConfigurationError;
+    },
+    async remove() {
+      throw mediaStorageConfigurationError;
+    },
+  };
+}
 const maxFileSizeMb = Math.max(1, parseInt(process.env.MAX_FILE_SIZE_MB || '50', 10) || 50);
 
 // Fail fast on a misconfigured Cloudflare R2 bucket. A bad region (R2 is "auto",
@@ -286,7 +309,7 @@ app.get('/api/admin/health', requireAdmin, async (_req, res) => {
       (process.env.BREVO_SMTP_HOST && process.env.BREVO_SMTP_USERNAME) ||
       (process.env.SMTP_HOST && process.env.SMTP_USER)
     ),
-    mediaStorage: mediaStorage.kind,
+    mediaStorage: mediaStorageConfigurationError ? 'unavailable' : mediaStorage.kind,
   });
 });
 

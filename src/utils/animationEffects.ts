@@ -1,0 +1,37 @@
+const ANIMATION_CLASSES: Record<string, string> = {
+  fade: 'anim-fade-in',
+  'fade-in': 'anim-fade-in',
+  'fade-up': 'anim-fade-up',
+  'slide-up': 'anim-fade-up',
+  'slide-down': 'anim-fade-down',
+  'slide-left': 'anim-slide-in-left',
+  'slide-right': 'anim-slide-in-right',
+  'slide-in': 'anim-slide-in-left',
+  'zoom-in': 'anim-zoom-in',
+  scale: 'anim-zoom-in',
+  'zoom-out': 'anim-zoom-out',
+  rotate: 'anim-rotate-in',
+  'rotate-in': 'anim-rotate-in',
+  'rotate-subtle': 'anim-rotate-in',
+  reveal: 'anim-hero-dramatic',
+  'hero-dramatic': 'anim-hero-dramatic',
+  'subtle-reveal': 'anim-fade-in',
+  'pulse-focus': 'anim-pulse-focus',
+  'pulse-glow': 'anim-pulse-focus',
+  'disc-drift': 'anim-disc-drift',
+  'disc-float': 'anim-disc-float',
+  'orbit-spin': 'anim-orbit-spin',
+  'orbit-reverse-spin': 'anim-orbit-reverse-spin',
+  'sphere-float': 'anim-sphere-float',
+  'card-elevate': 'anim-hover-lift',
+  'hover-scale': 'anim-hover-scale',
+  'media-zoom': 'anim-media-zoom',
+  tilt: 'anim-pointer-tilt',
+  'text-reveal': 'anim-text-reveal',
+  stagger: 'anim-stagger',
+  'stagger-cards': 'anim-stagger',
+};
+
+export function getAnimationClass(type?: string): string {
+  return type ? ANIMATION_CLASSES[type] || 'anim-fade-up' : '';
+}

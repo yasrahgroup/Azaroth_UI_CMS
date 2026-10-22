@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  azaroth-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: azaroth-tech-hive-app
+    restart: unless-stopped
+    ports:
+      - "8080:3000"
+    environment:
+      - PORT=8080
+      - NODE_ENV=production
+      - JWT_SECRET=${JWT_SECRET:?Set JWT_SECRET in the environment}
+      - DATABASE_URL=${DATABASE_URL}
+      - INITIAL_ADMIN_EMAIL=${INITIAL_ADMIN_EMAIL:?Set INITIAL_ADMIN_EMAIL in the environment}
+      - INITIAL_ADMIN_PASSWORD=${INITIAL_ADMIN_PASSWORD:?Set INITIAL_ADMIN_PASSWORD in the environment}
+      - BREVO_SMTP_HOST=${BREVO_SMTP_HOST:-smtp-relay.brevo.com}
+      - BREVO_SMTP_PORT=${BREVO_SMTP_PORT:-587}
+      - BREVO_SMTP_USERNAME=${BREVO_SMTP_USERNAME}
+      - BREVO_SMTP_PASSWORD=${BREVO_SMTP_PASSWORD}
+      - BREVO_FROM_EMAIL=${BREVO_FROM_EMAIL:-notifications@azarothtechhive.com}
+      - BREVO_FROM_NAME="Azaroth Tech-Hive"
+      - CONTACT_NOTIFICATION_EMAIL=${CONTACT_NOTIFICATION_EMAIL:-azarothtechhive@gmail.com}
+    volumes:
+      - azaroth_data:/app/data
+      - azaroth_uploads:/app/uploads
+
+volumes:
+  azaroth_data:
+  azaroth_uploads:

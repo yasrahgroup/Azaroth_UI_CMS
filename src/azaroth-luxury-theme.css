@@ -1,0 +1,175 @@
+/* Azaroth Tech-Hive — Plum / Gold / Orchid / Peach Luxury Theme
+   Import AFTER src/index.css. CSS variables can be overwritten by CMS-published theme.
+*/
+:root {
+  --color-primary: #35123F;
+  --color-secondary: #D5A13C;
+  --color-accent: #A855F7;
+  --color-bg: #FAF7F2;
+  --color-surface: #FFFFFF;
+  --color-heading: #24102D;
+  --color-body: #62576A;
+  --color-muted: #62576A;
+  --color-border: #E7D9CC;
+  --color-btn-bg: #35123F;
+  --color-btn-text: #FFF9F1;
+  --color-header-bg: #FAF7F2;
+  --color-footer-bg: #24102D;
+  --color-gradient-start: #A855F7;
+  --color-gradient-end: #F4A7A3;
+  --gradient-angle: 135deg;
+  --az-orchid: #A855F7;
+  --az-peach: #F4A7A3;
+  --az-gold-bright: #E8C982;
+  --az-gold-dark: #96702F;
+  --az-gradient: linear-gradient(135deg, var(--az-orchid), var(--az-peach));
+  --az-gold-gradient: linear-gradient(130deg,#96702F 0%,#E8C982 48%,#B68A40 100%);
+  --az-glass: rgba(250,247,242,.55);
+  --az-glass-border: rgba(255,255,255,.75);
+  --az-glass-shadow: 0 18px 55px rgba(53,18,63,.11), inset 0 1px 0 rgba(255,255,255,.85);
+}
+
+/* Apply these as explicit classes in public website sections.
+   This avoids inadvertently restyling the CMS administrator UI. */
+.az-luxury-page {
+  color: var(--color-body);
+  background: radial-gradient(circle at 85% 9%,rgba(168,85,247,.13),transparent 30%),
+              radial-gradient(circle at 12% 45%,rgba(244,167,163,.15),transparent 35%),
+              var(--color-bg);
+  min-height: 100vh;
+}
+.az-luxury-page .az-title {
+  color: var(--color-heading);
+  font-weight: 750;
+  letter-spacing: -.045em;
+  line-height: 1.08;
+}
+.az-luxury-page .az-gradient-text {
+  background: var(--az-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.az-luxury-page .az-glass {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--az-glass);
+  border: 1px solid var(--az-glass-border);
+  border-radius: 24px;
+  box-shadow: var(--az-glass-shadow);
+  -webkit-backdrop-filter: blur(22px) saturate(145%);
+  backdrop-filter: blur(22px) saturate(145%);
+}
+.az-luxury-page .az-glass::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(140deg,rgba(255,255,255,.54),transparent 43%,rgba(213,161,60,.13) 85%,rgba(255,255,255,.12));
+}
+.az-luxury-page .az-glass::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(232,201,130,.34);
+  mask-image: linear-gradient(145deg,#000,transparent 65%);
+}
+.az-luxury-page .az-card-3d {
+  transform-style: preserve-3d;
+  transition: transform .38s cubic-bezier(.2,.8,.2,1), box-shadow .38s ease;
+  will-change: transform;
+}
+@media (hover:hover) {
+  .az-luxury-page .az-card-3d:hover {
+    transform: perspective(1000px) translateY(-7px) rotateX(2deg) rotateY(-2deg);
+    box-shadow: 0 26px 65px rgba(53,18,63,.17), 0 0 25px rgba(213,161,60,.1);
+  }
+}
+.az-luxury-page .az-btn-primary,
+.az-luxury-page .az-btn-gold {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: .55rem;
+  padding: .85rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 650;
+  text-decoration: none;
+  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+}
+.az-luxury-page .az-btn-primary {
+  color: #fff9f1;
+  background: var(--color-primary);
+  border: 1px solid rgba(232,201,130,.55);
+  box-shadow: 0 8px 22px rgba(53,18,63,.16);
+}
+.az-luxury-page .az-btn-gold {
+  color: #24102D;
+  background: var(--az-gold-gradient);
+  border: 1px solid #D5A13C;
+  box-shadow: 0 8px 26px rgba(150,112,47,.18);
+}
+.az-luxury-page :is(.az-btn-primary,.az-btn-gold):hover {
+  transform: translateY(-2px);
+  filter: brightness(1.045);
+  box-shadow: 0 12px 28px rgba(53,18,63,.21);
+}
+.az-luxury-page :is(.az-btn-primary,.az-btn-gold):focus-visible {
+  outline: 3px solid var(--az-orchid);
+  outline-offset: 3px;
+}
+.az-luxury-page .az-gold-line {
+  height: 1px;
+  border: 0;
+  background: linear-gradient(90deg,transparent,#D5A13C,transparent);
+}
+.az-luxury-page .az-orchid-peach-panel {
+  background: var(--az-gradient);
+  color: #24102D;
+  border-radius: 24px;
+}
+.az-luxury-page .az-gold-reflection {
+  background-image: linear-gradient(115deg,transparent 5%,rgba(255,255,255,.5) 29%,rgba(232,201,130,.38) 40%,transparent 55%);
+  background-size: 200% 100%;
+  animation: az-shimmer 6s ease-in-out infinite;
+}
+@keyframes az-shimmer { 0%,35% { background-position: 120% 0; } 70%,100% { background-position: -100% 0; } }
+@media (max-width: 640px) {
+  .az-luxury-page .az-glass { border-radius: 18px; -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .az-luxury-page .az-gold-reflection { animation: none; }
+  .az-luxury-page .az-card-3d,
+  .az-luxury-page :is(.az-btn-primary,.az-btn-gold) { transition: none; transform: none !important; }
+}
+
+/* Sign-off candidate: public-site luxury enhancements driven by CMS theme tokens. */
+body:not(:has([data-cms-mode])) .az-brand-accent { color: var(--color-secondary); }
+.az-gradient-surface { background: linear-gradient(var(--gradient-angle), var(--color-gradient-start), var(--color-gradient-end)); }
+.az-gold-reflection { box-shadow: inset 0 1px 0 rgba(255,255,255,.85), 0 16px 45px rgba(53,18,63,.14), 0 0 0 1px color-mix(in srgb,var(--color-secondary) 34%,transparent); }
+@media (prefers-reduced-motion: reduce) { .az-card-3d, .az-glass, .az-btn-gold { animation: none !important; transition: none !important; transform: none !important; } }
+
+/* RC2 integration: ergonomic effects on existing semantic CMS-generated content.
+   Selectors are constrained to public routes and support keyboard interaction. */
+.az-luxury-page :is(.az-glass,.glass-panel,.luxury-glass) {
+  border-color: color-mix(in srgb, var(--color-secondary) 38%, transparent);
+}
+.az-luxury-page :is(button,a):focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}
+.az-luxury-page ::selection {
+  background: color-mix(in srgb, var(--color-accent) 30%, white);
+  color: var(--color-heading);
+}
+@media (prefers-reduced-motion: reduce) {
+  .az-luxury-page *, .az-luxury-page *::before, .az-luxury-page *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}

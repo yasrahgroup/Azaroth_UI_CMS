@@ -1,0 +1,16 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+env.local
+data/db.json
+.env*
+!.env.example
+data-e2e/
+uploads-e2e/
+data-test-*/
+uploads-test-*/
+playwright-report/
+test-results/

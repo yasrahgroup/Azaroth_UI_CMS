@@ -56,5 +56,10 @@
     "tailwindcss": "^4.3.3",
     "tsx": "^4.21.0",
     "typescript": "^7.0.2"
+  },
+  "overrides": {
+    "sanitize-html": {
+      "htmlparser2": "8.0.2"
+    }
   }
 }

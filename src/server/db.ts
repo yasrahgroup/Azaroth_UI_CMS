@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 import fs from 'fs';
+import os from 'os';
 import path from 'path';
 import pg from 'pg';
 import bcrypt from 'bcryptjs';
@@ -340,7 +341,9 @@ interface DbState {
 
 let pool: pg.Pool | null = null;
 let isNeonConnected = false;
-const DATA_DIR = path.resolve(process.cwd(), process.env.DATA_DIR || 'data');
+const defaultDataDir =
+  process.env.VERCEL === '1' ? path.join(os.tmpdir(), 'azaroth-data') : 'data';
+const DATA_DIR = path.resolve(process.cwd(), process.env.DATA_DIR || defaultDataDir);
 const DB_FILE = path.join(DATA_DIR, 'db.json');
 
 // Deeply merge stored settings with DEFAULT_SETTINGS so newly added fields and default theme tokens are never dropped or left undefined

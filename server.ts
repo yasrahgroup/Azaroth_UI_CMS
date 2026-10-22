@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 import fs from 'fs';
+import os from 'os';
 import { fileURLToPath } from 'url';
 import multer from 'multer';
 import bcrypt from 'bcryptjs';
@@ -50,7 +51,9 @@ process.on('uncaughtException', (err) => {
 app.set('trust proxy', process.env.TRUST_PROXY ? (process.env.TRUST_PROXY === 'true' ? true : process.env.TRUST_PROXY) : 1);
 
 // Ensure uploads folder exists
-const UPLOAD_DIR = path.resolve(process.cwd(), process.env.UPLOAD_DIR || 'uploads');
+const defaultUploadDir =
+  process.env.VERCEL === '1' ? path.join(os.tmpdir(), 'azaroth-uploads') : 'uploads';
+const UPLOAD_DIR = path.resolve(process.cwd(), process.env.UPLOAD_DIR || defaultUploadDir);
 if (!fs.existsSync(UPLOAD_DIR)) {
   fs.mkdirSync(UPLOAD_DIR, { recursive: true });
 }
